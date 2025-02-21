@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { User } from 'src/typeorm/entities/User';
-import { CreateUserParams } from 'src/utils/types';
+import { CreateUserParams, UpdateUserParams } from 'src/utils/types';
 import { Repository } from 'typeorm';
 
 //service is responsible for all the 'business logic'
@@ -26,6 +26,13 @@ export class UsersService {
      });
      //save is an async method
      this.userRepository.save(newUser)
+  }
 
+  updateUser(id: number, updateUserDetails:UpdateUserParams){
+    this.userRepository.update({ id }, { ...updateUserDetails })
+  }
+
+  deleteUser(id: number){
+    this.userRepository.delete({ id })
   }
 }
