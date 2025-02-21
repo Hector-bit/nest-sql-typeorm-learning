@@ -1,4 +1,6 @@
-import { Column, Entity, PrimaryColumn, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, JoinColumn, OneToMany, OneToOne, PrimaryColumn, PrimaryGeneratedColumn } from "typeorm";
+import { Profile } from "./Profile";
+import { Post } from "./Posts";
 
 @Entity({ name: 'users' })
 
@@ -19,5 +21,15 @@ export class User {
 
   @Column({ nullable: true })
   authStrategy: string;
+
+  @OneToOne(() => Profile)
+  
+  @JoinColumn()
+  //profile is the property, Profile is the type :D
+  profile: Profile;
+
+  @OneToMany(() => Post, (post) => post.user)
+  posts: Post[]
 }
+
 
